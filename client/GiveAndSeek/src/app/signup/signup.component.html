@@ -1,0 +1,67 @@
+<div class="container">
+
+    <div class="row pt-5 ">
+        <div class="col-md-6 mx-auto">
+            <div class="card rounded-5  ">
+                <div class="text-center mt-4"> <i class="fa fa-yelp fa-2x bg-orange " aria-hidden="true" ></i></div>
+                    <h4 class="text-center text-dark my-1"> Signup to Giveandseek </h4>
+                <div class="card-body">
+                    <form class="form">
+                        <div class="form-group ">
+                            <label for="">User Name</label>
+                            <input [(ngModel)]="signedupuser.user_name" class="form-control rounded-5"
+                                name="user_name" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="">Email id</label>
+                            <input [(ngModel)]="signedupuser.email_id" type="email" class="form-control rounded-5"
+                                name="email_id" id="mail_id" required >
+                        </div>
+                        <div class="form-group ">
+                            <label for="">password</label>
+                            <input [(ngModel)]="signedupuser.user_password" type="password"
+                                class="form-control rounded-5" name="user_password" id="user_password" required
+                                minlength="4" #user_password="ngModel">
+                            <div *ngIf="user_password.invalid && (user_password.dirty || user_password.touched)"
+                                class="alert text-danger">
+
+                                <div *ngIf="user_password.errors?.required">
+                                    Password is required.
+                                </div>
+                                <div *ngIf="user_password.errors?.minlength">
+                                    Password must be at least 4 characters long.
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="">Mobile Number</label>
+                            <input [(ngModel)]="signedupuser.mob_no" type="text" class="form-control rounded-5"
+                                name="mob_no" required id="mob_no" #mob_no="ngModel" minlength="10" pattern="(^[0-9]{10}$)">
+                                <div *ngIf="mob_no.invalid && (mob_no.dirty || mob_no.touched)"
+                                class="alert text-danger">
+
+                                <div *ngIf="mob_no.errors?.required">
+                                    Mobile Number is required.
+                                </div>
+                                <div *ngIf="mob_no.errors?.minlength">
+                                    Mobile Number must be 10 characters long.
+                                </div>
+                                <div *ngIf="mob_no.errors?.pattern">
+                                    Mobile Number must only contain numbers.
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 my-3">
+                            <button (click)="onSignup()" class="btn btn-orange  my-2">Signup
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

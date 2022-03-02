@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+.btn-orange{
+    background-color: #fa5717;
+    color: white;
+}
+.bg-orange{
+    color: #fa5717;
+}
+.textTitle-css{
+    font-family: Roboto,system-ui !important;
+    font-weight: 600;
+    line-height: 2%;
+    letter-spacing: 1.5px !important;
+    color: #44475b;
+}
+/* .content-theme
+{
+background-color: black;
+color: white;
+} */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto,system-ui !important;
+    font-weight: 400;
+    color: #44475b;
+    letter-spacing:.3px !important; }

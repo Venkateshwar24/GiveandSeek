@@ -1,0 +1,15 @@
+
+
+
+<div class="row-fluid">
+    <div class="col-lg-12 col-md-10 ">
+        <div class="cover-container" >
+            <!-- START PANEL -->
+            <span  *ngFor="let documents of storyDocuments" >
+           <a href="http://localhost:8000/{{documents}}" target="_blank"> <img class="cover-item" src="http://localhost:8000/{{documents}}" style="width:auto"> </a>
+            </span>
+            
+            <!-- END PANEL -->
+        </div>
+    </div>
+</div>

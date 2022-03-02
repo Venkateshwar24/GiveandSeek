@@ -1,0 +1,63 @@
+
+<h2 class="text-center mt-5 textTitle-css"> Track the Updates </h2>
+<!-- Button trigger modal -->
+<div class="text-center my-3">
+<button type="button" class="btn btn-orange  btn-lg " data-bs-toggle="modal" data-bs-target="#addUpdate">
+    Give Updates
+  </button>
+</div>
+  <mat-vertical-stepper orientation="vertical" >
+    <mat-step  *ngFor="let update of updateDetails " class="mt-3">
+        
+      <ng-template matStepLabel>{{update.update_title}} <div class="text-muted mt-1">
+          <i class="fa fa-user-o mr-2" aria-hidden="true">  </i>uploader
+          <i class="fa fa-clock-o mr-2" aria-hidden="true"></i>{{update.update_creation_date}}</div> </ng-template>
+      <ng-template matStepContent>
+       
+      </ng-template>
+      
+      <div>{{update.update_description}}</div>
+    </mat-step>
+
+
+  </mat-vertical-stepper>
+ 
+
+
+  
+  
+  <!-- Modal -->
+  <div class="modal fade" id="addUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="addUpdateLabel">Give an Update</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form class="form">
+        <div class="modal-body">
+            
+            
+                <div class="form-group ">
+                    <label for="">Update Title</label>
+                    <input [(ngModel)]="updateData.update_title" type="text" class="form-control rounded-5"
+                        name="update_tile"  required>
+                </div>
+                <div class="form-group ">
+                    <label for="">Update Description</label>
+                    <textarea [(ngModel)]="updateData.update_description" type="text"
+                        class="form-control rounded-5" name="update_description"  required>
+                        </textarea>
+                    
+                </div>
+                
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-orange" (click)="onUpdateSubmit()">submit</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>

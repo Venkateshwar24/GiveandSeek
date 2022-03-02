@@ -1,0 +1,73 @@
+<div class="container mt-5">
+
+    <div class="card rounded-5 px-3 ">
+        <div class="card-header bg-orange ">
+            Upload your story
+        </div>
+        <div class="card-body ">
+            <form class="form" [formGroup]="newStoryData" (ngSubmit)="onStorySubmit()">
+                <div class="form-group  ">
+                    <label for="" class="pb-2">Story Title</label>
+                    <input type="text" class="form-control rounded-5" formControlName="story_title" required>
+                </div>
+                <div class="form-group  mt-3">
+                    <label for="" class="pb-2">Recipient Name</label>
+                    <input type="text" class="form-control rounded-5" formControlName="recipient_name" required>
+                </div>
+                <div class="form-group  mt-3">
+                    <label for="" class="pb-2">Story Description</label>
+                    <textarea type="text" class="form-control rounded-5" formControlName="story_description"
+                        required></textarea>
+                </div>
+                <div class="form-group  mt-3 custom-control custom-switch">
+                    <input type="checkbox" class="form-control custom-control-input rounded-5" id="customSwitch1"
+                        formControlName="isfundRequired" (change)="checkFundRequired($event)" required>
+                    <label for="customSwitch1" class="pb-2 custom-control-label">Fund Required ?</label>
+                </div>
+                <div class="mb-3  mt-3">
+                    <label for="formFile" class="form-label ">Document Proofs</label>
+                    <input class="form-control " type="file" multiple id="formFile" formControlName="documents_proof"
+                        (change)="onFileChange($event)" required>
+
+                </div>
+                <div *ngIf="fundRequired==true">
+                    <h3> BANK DETAILS</h3>
+                    <div class="mb-3  mt-3">
+                        <label for="" class="form-label ">Bank Name</label>
+                        <input class="form-control " type="text" formControlName="bank_name" required>
+
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="" class="form-label ">Account Holder Name</label>
+                        <input class="form-control " type="text" formControlName="holder_name" required>
+
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="" class="form-label ">Account Number</label>
+                        <input class="form-control " type="text" formControlName="account_number" required>
+
+                    </div>
+
+                    <div class="mb-3  mt-3">
+                        <label for="" class="form-label ">IFSC CODE</label>
+                        <input class="form-control " type="text" formControlName="ifsc_code" required>
+
+                    </div>
+
+                    <div class="mb-3  mt-3">
+                        <label for="" class="form-label ">UPI id</label>
+                        <input class="form-control " type="text" formControlName="upi_id" required>
+
+                    </div>
+                </div>
+
+
+                <div class="mt-3">
+                    <button class="btn btn-orange float-right" (change)="onStorySubmit()">SUBMIT
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

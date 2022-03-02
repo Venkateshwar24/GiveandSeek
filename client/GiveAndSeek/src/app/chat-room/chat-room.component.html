@@ -1,0 +1,15 @@
+<h2>ChatRoomName</h2>
+<div *ngFor="let item of roomData">
+    <p>{{item.user_id}} : {{item.message}}</p>
+</div>
+<!-- <div>
+    <span>Venkatesh:</span> Hello 
+</div>
+<div>
+    <span>Other:</span>Hi
+</div> -->
+<div>
+    <input type="text" [(ngModel)]="chatMessage">
+    <button class="btn btn-primary" (click)="this.sendMessages()">Send</button>
+</div>
+
