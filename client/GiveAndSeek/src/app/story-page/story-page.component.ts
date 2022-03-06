@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'services/auth.service';
@@ -16,13 +16,18 @@ export class StoryPageComponent implements OnInit {
   storyData: any;
   storyIdfromRoute: string;
   chatRoom: FormGroup;
+  rooms = [];
+  room_id;
+  loadComponent: boolean = false;
   constructor(private route: ActivatedRoute,
     private storyService: StoryService,
-    private socketService: SocketService,
     public authService: AuthService,
     private chatRoomService: ChatRoomsService,
     private fb: FormBuilder,
     private _route: Router) {
+
+    
+
     this.chatRoom = this.fb.group({
       story_id: '',
       recipient_id: ''
@@ -39,20 +44,24 @@ export class StoryPageComponent implements OnInit {
       this.authService.getUser();
 
   }
-  rooms = [];
-  room_id;
-  communicate(story_id) {
+
+
+
+
+
+
+
+  async communicate() {
     let room;
-    this.socketService.fetchRooms().subscribe(res => {
+    await this.storyService.fetchRooms().subscribe(res => {
       this.rooms = res;
       console.log(this.rooms);
-      room = this.rooms.find(room => room.story_id == story_id);
+      room = this.rooms.find(room => room.story_id == this.storyIdfromRoute);
       this.room_id = room._id;
-      this.socketService.communication(this.room_id);
       this._route.navigate(['/chatroom', this.room_id]);
+      
+      this.loadComponent = true;
     });
-
-
 
   }
 

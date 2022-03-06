@@ -13,7 +13,7 @@ export class AuthService {
     private router: Router) { }
 
 
-loggedIn_user_id;
+public loggedIn_user_id;
   signupUser(user) {
     return this.http.post<any>(this.signupurl, user);
   }
@@ -36,15 +36,20 @@ loggedIn_user_id;
   }
 
 
-  getUser() {
-    let user;
-    const token = this.getToken();
-    this.http.get(`http://localhost:8000/users/${token}`)
-      .subscribe(
-        res => {
-          user = res;
-          this.loggedIn_user_id = user._id;
-        });
+  async getUser() {
+    return new Promise<void>((resolve, reject) => {
+      let user;
+      const token = this.getToken();
+       this.http.get(`http://localhost:8000/users/${token}`)
+        .subscribe(
+       res => {
+            user = res;
+            this.loggedIn_user_id = user._id;
+           
+          });
+      resolve();
+  });
+    
   }
 
   

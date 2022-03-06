@@ -1,3 +1,6 @@
+
+
+
 <div class="container" *ngFor="let story of storyData">
     <div class="card  mb-3 content-theme">
         <div class="row g-0">
@@ -47,8 +50,15 @@
         <li class="list-group-item ">IFSC code : <strong>{{story.ifsc_code}}</strong></li>
     </ul>
 
-    <button class="btn btn-orange" (click)="communicate(story._id)"> Connect directly</button>
-        <form class="form" [formGroup]='chatRoom'>
+    <button class="btn btn-orange" (click)="communicate()"> Connect directly</button>
+        
+
+    
+    
+    
+    
+    
+    <form class="form" [formGroup]='chatRoom'>
                         
             <div class="form-group ">
                 <input   class="form-control rounded-5"
@@ -65,4 +75,9 @@
     <app-update-view [updateDetails]="story.updates" story_id = "{{storyIdfromRoute}}"  ></app-update-view>
 
     <app-comments-view story_id = "{{storyIdfromRoute}}"></app-comments-view>
+    
 </div>
+
+
+  
+ 

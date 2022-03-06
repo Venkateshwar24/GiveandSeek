@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'services/auth.service';
 import { SocketService } from 'services/socket.service';
 
 @Component({
@@ -7,36 +9,45 @@ import { SocketService } from 'services/socket.service';
   styleUrls: ['./chat-room.component.css']
 })
 export class ChatRoomComponent implements OnInit {
-
-  constructor(private socketService : SocketService) {
-    this.receiveMessages();
-   }
-
   roomData = [];
-  chatMessage="";
+  chatMessage = "";
+  roomIdfromRoute;
+
+  constructor(private socketService: SocketService,
+    private route: ActivatedRoute,
+    public authService: AuthService) {
+
+      this.socketService.receiveMessages().subscribe(data =>
+        this.roomData.push(data));
+
+  }
+
+
   ngOnInit(): void {
 
-
-    this.getMessageData();
+    const routeParams = this.route.snapshot.paramMap;
+    this.roomIdfromRoute = routeParams.get('s_id');
+    this.authService.getUser().then( () =>this.socketService.newConnection(this.roomIdfromRoute));
+    this.getMessageData(this.roomIdfromRoute);
+    
+    
 
   }
 
 
-  sendMessages()
-  {
-    this.socketService.chatRoomMessage(this.chatMessage);
-    this.chatMessage="";
+
+
+  sendMessages() {
+    this.socketService.chatRoomMessage(this.chatMessage, this.roomIdfromRoute);
+    this.chatMessage = "";
+   
+
   }
 
- receiveMessages()
- {
-   this.socketService.socket.on("chatMessages",(data)=>{
-     this.roomData.push(data);
-   })
- }
-  getMessageData()
-  {
-    this.socketService.fetchChatRoomMessage().
-    subscribe(res => this. roomData = res, err => console.log(err));
+
+
+  getMessageData(roomIdfromRoute) {
+    this.socketService.fetchChatRoomMessage(roomIdfromRoute).
+      subscribe(res => this.roomData = res, err => console.log(err));
   }
 }

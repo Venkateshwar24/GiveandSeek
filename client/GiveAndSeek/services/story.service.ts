@@ -32,4 +32,10 @@ export class StoryService {
   {
     return this.http.get<any>(`http://localhost:8000/stories/comments/${story_id}`);
   }
+
+
+  fetchRooms() {
+    return this.http.get<any>('http://localhost:8000/rooms');
+  }
+
 }

@@ -33,7 +33,8 @@ const routes: Routes = [
   },
   {
     path:'chatroom/:s_id',
-    component:ChatRoomComponent
+    component:ChatRoomComponent,
+    canActivate:[AuthGuard]
   }
 
 

@@ -10,6 +10,7 @@ const commentsController = require('./controller/commentsController');
 const chatRoomsController = require('./controller/chatRoomsController');
 const chatRoomMessageController = require('./controller/chatRoomMessageController');
 const { Messages } = require("./models/chatRoomMessage");
+const { Users } = require("./models/userModel");
 app.use(bodyParser.json());
 app.use(cors());
 app.get('/', (req, res) => {
@@ -24,8 +25,6 @@ app.use('/FilesUpload/DocumentProofs', express.static('FilesUpload/DocumentProof
 const server = app.listen(PORT, () => {
     console.log(`Server running at port ${PORT} successfully!`);
     // chatSystem.chatRoom(server);
-
-
     const io = require("socket.io")(server, {
         cors: {
             origin: "http://localhost:4200",
@@ -50,22 +49,31 @@ const server = app.listen(PORT, () => {
             console.log(socket.id + " joined in: " + chatRoomId);
             //socket.broadcast.to(chatRoomId).emit('New User Joined ',{userid:userId,message:"Has joined this room"});
         });
-
+        
         socket.on("chatMessages", (data) => {
-            const chatRoomMessages = new Messages({
-                room_id: data.room_id,
-                user_id: data.user_id,
-                message: data.message,
-            });
-
-            chatRoomMessages.save((err) => {
-                if (err)
-                    console.log(err);
-                else {
-                    io.in(data.room_id).emit("chatMessages", (data));
-                    console.log(data);
-                }
-            })
+            console.log(data);
+             Users.findOne( { _id: data.user_id} , (err,docs)=>{
+                 if(!err){
+                    const chatRoomMessages = new Messages({
+                        room_id: data.room_id,
+                        user_id: data.user_id,
+                        message: data.message,
+                        recipient_name : docs.user_name
+                    });
+                    chatRoomMessages.save((err,val) => {
+                       
+                        if (err)
+                            console.log( 'sssssssssssssssss' + err);
+                        else {
+                            io.in(data.room_id).emit("chatMessages", (val));
+                        }
+                    })
+                 }
+                 
+                 else
+                 console.log(err);
+             })
+            
 
         })
 

@@ -14,6 +14,10 @@ const messageSchema = new mongoose.Schema({
         ref: 'Users',
         required: true
     },
+    recipient_name:{
+        type:String,
+        required: true
+    },
     message:{
         type:String,
         required: true

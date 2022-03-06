@@ -19,3 +19,17 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.scrollChat{
+   
+     overflow-x: auto;
+     overflow-y: hidden;
+  }
+
+  .scrollChat::-webkit-scrollbar {
+    width: 1px;
+    background-color: #F5F5F5; }
+    
+    .scrollChat::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    
+    background-color: #adadad; }
