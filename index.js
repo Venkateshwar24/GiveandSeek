@@ -44,9 +44,9 @@ const server = app.listen(PORT, () => {
             console.log('disconnected' + socket.id);
         })
 
-        socket.on("joinRoom", ({ chatRoomId, userId }) => {
+        socket.on("joinRoom", ({ chatRoomId, userid }) => {
             socket.join(chatRoomId);
-            console.log(socket.id + " joined in: " + chatRoomId);
+            console.log(userid + " joined in: " + chatRoomId);
             //socket.broadcast.to(chatRoomId).emit('New User Joined ',{userid:userId,message:"Has joined this room"});
         });
         

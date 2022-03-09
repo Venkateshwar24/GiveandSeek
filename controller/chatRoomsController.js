@@ -1,7 +1,7 @@
 const express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
-var room_id = require('mongoose').Types.ObjectId;
+var story_id = require('mongoose').Types.ObjectId;
 var { Users } = require('./../models/userModel');
 var { Story } = require('./../models/storyModel');
 var { Rooms } = require('./../models/chatRooms');
@@ -60,21 +60,33 @@ router.get('/',(req,res) => {
 
 
 router.post('/', (req, res) => {
-    var room = new Rooms({
-        story_id: req.body.story_id,
-        recipient_id: req.body.recipient_id,
-        creation_date: currDate,
-        creation_time: currTime
-    });
 
-    room.save((err, doc) => {
-        if (!err) {
-            res.send(doc);
-        }
-        else {
-            console.log(err);
-        }
-    });
+    Rooms.findOne({story_id : req.body.story_id},(err,docs) =>{
+        if(docs)
+         {
+            return res.status(401).send("Room already exits");
+         }
+         else{
+            var room = new Rooms({
+                story_id: req.body.story_id,
+                recipient_id: req.body.recipient_id,
+                creation_date: currDate,
+                creation_time: currTime
+            });
+        
+            room.save((err, doc) => {
+                if (!err) {
+                    res.send(doc);
+                }
+                else {
+                    console.log(err);
+                }
+            });
+         }
+      
+    })
+    
+    
 })
 
 module.exports = router;

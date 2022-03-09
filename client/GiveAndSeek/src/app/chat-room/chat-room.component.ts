@@ -12,13 +12,13 @@ export class ChatRoomComponent implements OnInit {
   roomData = [];
   chatMessage = "";
   roomIdfromRoute;
-
+  USERID;
   constructor(private socketService: SocketService,
     private route: ActivatedRoute,
     public authService: AuthService) {
-
-      this.socketService.receiveMessages().subscribe(data =>
-        this.roomData.push(data));
+      
+    this.socketService.receiveMessages().subscribe(data =>
+      this.roomData.push(data));
 
   }
 
@@ -27,10 +27,10 @@ export class ChatRoomComponent implements OnInit {
 
     const routeParams = this.route.snapshot.paramMap;
     this.roomIdfromRoute = routeParams.get('s_id');
-    this.authService.getUser().then( () =>this.socketService.newConnection(this.roomIdfromRoute));
+    this.socketService.newConnection(this.roomIdfromRoute);
     this.getMessageData(this.roomIdfromRoute);
-    
-    
+    this.USERID = localStorage.getItem('user_id');
+
 
   }
 
@@ -40,7 +40,7 @@ export class ChatRoomComponent implements OnInit {
   sendMessages() {
     this.socketService.chatRoomMessage(this.chatMessage, this.roomIdfromRoute);
     this.chatMessage = "";
-   
+
 
   }
 

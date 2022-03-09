@@ -1,7 +1,6 @@
 
 
-
-<div class="container" *ngFor="let story of storyData">
+<div class="container col-9" *ngFor="let story of storyData">
     <div class="card  mb-3 content-theme">
         <div class="row g-0">
             <div class="col-md-4">
@@ -30,54 +29,52 @@
                     <div class="text-dark">
                         Recipient Name : <strong>{{story.recipient_name}}</strong>
                     </div>
-    
+
                 </div>
                 <p class="px-3 story_description "> {{story.story_description }}</p>
             </div>
-            
+
         </div>
-        
+
     </div>
-    
+
     <h2 class="textTitle-css text-center">Documents Proof</h2>
     <app-documents-view [storyDocuments]="story.documents_proof" class="text-center mb-5"></app-documents-view>
-   
+
     <ul class="list-group mx-auto" style="width: 50% !important;" *ngIf="story.isfundRequired">
-        <h2 class="textTitle-css text-center" >Transfer Details</h2>
+        <h2 class="textTitle-css text-center">Transfer Details</h2>
         <li class="list-group-item list-group-item-warning  "> Bank Name : <strong>{{story.bank_name}}</strong></li>
         <li class="list-group-item ">Account Holder's Name : <strong>{{story.holder_name}}</strong></li>
         <li class="list-group-item ">Account Number : <strong>{{story.account_number}}</strong></li>
         <li class="list-group-item ">IFSC code : <strong>{{story.ifsc_code}}</strong></li>
     </ul>
 
-    <button class="btn btn-orange" (click)="communicate()"> Connect directly</button>
-        
+    <div class="d-flex justify-content-center m-5">
+        <button class="btn btn-orange" (click)="communicate()"> 
+            Connect directly <i class="fa-brands fa-telegram"></i> </button>
 
-    
-    
-    
-    
-    
-    <form class="form" [formGroup]='chatRoom'>
-                        
+
+        </div>
+
+
+
+
+        <form class="form" [formGroup]='chatRoom'>
+
             <div class="form-group ">
-                <input   class="form-control rounded-5"
-                formControlName="story_id" hidden>
+                <input class="form-control rounded-5" formControlName="story_id" hidden>
             </div>
             <div class="form-group ">
-                <input
-                    class="form-control rounded-5"    formControlName="recipient_id"   hidden>
+                <input class="form-control rounded-5" formControlName="recipient_id" hidden>
             </div>
-        
-    
-    <button *ngIf="story.user_id===this.authService.loggedIn_user_id" class="btn btn-orange" (click)="onRoomCreate(story._id, story.user_id)">Create Room </button>
-</form>
-    <app-update-view [updateDetails]="story.updates" story_id = "{{storyIdfromRoute}}"  ></app-update-view>
 
-    <app-comments-view story_id = "{{storyIdfromRoute}}"></app-comments-view>
+
+            <button *ngIf="story.user_id===this.authService.loggedIn_user_id" class="btn btn-orange"
+                (click)="onRoomCreate(story._id, story.user_id)">Create Room </button>
+        </form>
     
+    <app-update-view [updateDetails]="story.updates" story_id="{{storyIdfromRoute}}"></app-update-view>
+
+    <app-comments-view story_id="{{storyIdfromRoute}}"></app-comments-view>
+
 </div>
-
-
-  
- 

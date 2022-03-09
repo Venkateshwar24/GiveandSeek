@@ -13,7 +13,7 @@ export class SocketService {
   socket = io('http://localhost:8000', {
 
     query: {
-      id: this.authService.loggedIn_user_id,
+      id: localStorage.getItem('user_id'),
     }
   });
 
@@ -39,25 +39,11 @@ export class SocketService {
 
 
 
-  // async communication(room_id) {
-  //   this.current_room = room_id;
-  //   // if (this.authService.isLoggedIn()) {
-  //   //   this.socket = await io('http://localhost:8000', {
-  //   //     query:{
-  //   //       id:this.authService.loggedIn_user_id,
-  //   //     }
-  //   //   });
-
-
-
-
-  //   // }
-  // }
-
+ 
 
   joinRoom(room_id) {
     this.socket.emit('joinRoom', {
-      userid: this.authService.loggedIn_user_id,
+      userid: localStorage.getItem('user_id'),
       chatRoomId: room_id,
     });
 
@@ -66,12 +52,11 @@ export class SocketService {
 
   async chatRoomMessage(message, roomid) {
     this.socket.emit('chatMessages', {
-      user_id: this.authService.loggedIn_user_id,
+      user_id: localStorage.getItem('user_id'),
       room_id: roomid,
       message: message
 
     });
-    console.log(this.authService.loggedIn_user_id)
   }
 
   receiveMessages() {

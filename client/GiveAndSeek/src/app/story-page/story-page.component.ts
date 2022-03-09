@@ -26,7 +26,7 @@ export class StoryPageComponent implements OnInit {
     private fb: FormBuilder,
     private _route: Router) {
 
-    
+
 
     this.chatRoom = this.fb.group({
       story_id: '',
@@ -59,7 +59,7 @@ export class StoryPageComponent implements OnInit {
       room = this.rooms.find(room => room.story_id == this.storyIdfromRoute);
       this.room_id = room._id;
       this._route.navigate(['/chatroom', this.room_id]);
-      
+
       this.loadComponent = true;
     });
 

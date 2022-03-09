@@ -27,6 +27,7 @@ public loggedIn_user_id;
 
   logoutUser() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user_id');
     this.router.navigate(['/']);
 
   }
@@ -45,7 +46,7 @@ public loggedIn_user_id;
        res => {
             user = res;
             this.loggedIn_user_id = user._id;
-           
+            localStorage.setItem('user_id',this.loggedIn_user_id)
           });
       resolve();
   });

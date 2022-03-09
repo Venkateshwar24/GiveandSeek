@@ -22,11 +22,15 @@ export class LoginComponent implements OnInit {
     this.authService.loginUser(this.loginUserData)
     .subscribe(
       res=> {
-        localStorage.setItem('token',res.token)
+        localStorage.setItem('token',res.token);
+        this.authService.getUser();
         this._router.navigate(['']);
       },
       err=>console.log(err)
     );
-  }
+   
+    
 
+  }
+  
 }
